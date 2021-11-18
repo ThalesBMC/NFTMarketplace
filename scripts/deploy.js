@@ -14,8 +14,7 @@ async function main() {
   console.log("/", nft.address,"nft esta no ar")
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
+
 main()
   .then(() => process.exit(0))
   .catch((error) => {
