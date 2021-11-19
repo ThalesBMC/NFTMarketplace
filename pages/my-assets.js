@@ -50,7 +50,38 @@ export default function MyAssets() {
     console.log(items);
     setLoadingState("loaded");
   }
+  async function sellNFT(nft) {
+    const web3Modal = new Web3Modal();
+    //connecta com metamask
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    //coleta a assinatura para validar a transação
+    const signer = provider.getSigner();
+    const marketContract = new ethers.Contract(
+      nftmarketaddress,
+      Market.abi,
+      signer
+    );
 
+    const data = await marketContract.fetchMyNFTs();
+    const contract = new ethers.Contract(
+      data[0][nft.itemId],
+      Market.abi,
+      signer
+    );
+    //cria o contrato com a assinatura.
+    console.log(signer);
+
+    const transaction = await contract.transferFrom(
+      nftaddress,
+      data[0][nft.itemId],
+      nftmarketaddress,
+      nft.itemId
+    );
+    console.log("a");
+    await transaction.wait();
+    console.log("ab");
+  }
   console.log(nfts);
   if (loadingState === "loaded" && !nfts.length)
     return <h1 className="py-10 px-20 text-3xl">No assets owned</h1>;
@@ -70,7 +101,7 @@ export default function MyAssets() {
                   Price - {nft.price} Eth
                 </p>
               </div>
-              {/* <button
+              <button
                 className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg w-full"
                 onClick={() =>
                   sellNFT({
@@ -81,7 +112,7 @@ export default function MyAssets() {
                 }
               >
                 Sell
-              </button> */}
+              </button>
             </div>
           ))}
         </div>

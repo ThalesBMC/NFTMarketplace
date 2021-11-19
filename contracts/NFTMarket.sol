@@ -67,7 +67,7 @@ contract NFTMarket is ReentrancyGuard {
       price,
       false
     );
-
+    
     IERC721(nftContract).transferFrom(msg.sender, address(this), tokenId);
 
     emit MarketItemCreated(
@@ -113,7 +113,19 @@ contract NFTMarket is ReentrancyGuard {
     );
   }
 
- 
+  
+  // function approve(address to, uint256 tokenId) public virtual override {
+  //       address owner = ERC721.ownerOf(tokenId);
+  //       require(to != owner, "ERC721: approval to current owner");
+
+  //       require(
+  //           _msgSender() == owner || isApprovedForAll(owner, _msgSender()),
+  //           "ERC721: approve caller is not owner nor approved for all"
+  //       );
+
+  //       _approve(to, tokenId);
+  //   }
+  
   
   function createMarketSale(
     address nftContract,
@@ -130,7 +142,19 @@ contract NFTMarket is ReentrancyGuard {
     _itemsSold.increment();
     payable(owner).transfer(listingPrice);
   }
-  
+
+ 
+
+  event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
+  function transferFrom(address nftContract,address from, address to, uint256 tokenId) public payable nonReentrant {
+        //solhint-disable-next-line max-line-length
+        
+        IERC721(nftContract).transferFrom(from, to, tokenId);
+        idToMarketItem[tokenId].owner = payable(to);
+        idToMarketItem[tokenId].sold = true;
+        emit Transfer(from, to, tokenId);
+    }
+
 
   function fetchMarketItems() public view returns (MarketItem[] memory) {
     uint itemCount = _itemIds.current();
