@@ -17,6 +17,7 @@
     "dotenv": "^10.0.0",
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.1",
+    "firebase": "^9.5.0",
     "hardhat": "^2.6.8",
     "ipfs-http-client": "^50.1.2",
     "next": "11.0.1",
