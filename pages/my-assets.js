@@ -2,14 +2,14 @@ import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Web3Modal from "web3modal"
-
+import { create as ipfsHttpClient } from 'ipfs-http-client'
 import {
   nftmarketaddress, nftaddress
 } from '../config'
 
 import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
-
+const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 export default function MyAssets() {
   const [nfts, setNfts] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
@@ -45,6 +45,8 @@ export default function MyAssets() {
     setNfts(items)
     setLoadingState('loaded') 
   }
+ 
+  console.log(nfts)
   if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl">No assets owned</h1>)
   return (
     <div className="flex justify-center">
@@ -57,6 +59,7 @@ export default function MyAssets() {
                 <div className="p-4 bg-black">
                   <p className="text-2xl font-bold text-white">Price - {nft.price} Eth</p>
                 </div>
+                {/* <button className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg w-full" onClick={ () =>createMarket2({image:nft.image,price:nft.price, itemId:nft.tokenId})}>Sell</button>  */}
               </div>
             ))
           }
