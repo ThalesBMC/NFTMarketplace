@@ -16,6 +16,7 @@ import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
 export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null)
   const [formInput, updateFormInput] = useState({ price: '', name: '', description: '' })
+  const [loadingCreate, setLoadingCreate] = useState(false);
   const router = useRouter()
 
   async function onChange(e) {
@@ -34,6 +35,7 @@ export default function CreateItem() {
     }  
   }
   async function createMarket() {
+    setLoadingCreate(true);
     const { name, description, price } = formInput
     if (!name || !description || !price || !fileUrl) return
     /* first, upload to IPFS */
@@ -71,9 +73,11 @@ export default function CreateItem() {
 
     transaction = await contract.createMarketItem(nftaddress, tokenId, price, { value: listingPrice })
     await transaction.wait()
+    setLoadingCreate(false);
+  
     router.push('/')
+      
   }
-
   return (
     <div className="flex justify-center">
       <div className="w-1/2 flex flex-col pb-12">
