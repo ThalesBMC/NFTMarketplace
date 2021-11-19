@@ -11,7 +11,7 @@ import {
 } from '../config'
 
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
-import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
+import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json'  
 
 export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null)
@@ -107,9 +107,13 @@ export default function CreateItem() {
             <img className="rounded mt-4" width="350" src={fileUrl} />
           )
         }
-        <button onClick={createMarket} className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg">
+        <button onClick={createMarket} className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg flex justify-center ">
           Create Digital Asset
+          {loadingCreate?
+         <img style={{width:"35px",height:"30px", marginLeft:"20px"}} src={"https://icons8.com/preloaders/preloaders/865/Ethereum%20logo%20revolving.gif"} alt="loading..." />
+        :null}
         </button>
+       
       </div>
     </div>
   )
