@@ -1,38 +1,42 @@
+import { ethers } from "ethers";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-import { ethers } from 'ethers'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import Web3Modal from "web3modal";
 
-import Web3Modal from "web3modal"
+import { nftaddress, nftmarketaddress } from "../config";
 
-import {
-  nftaddress, nftmarketaddress
-} from '../config'
-
-import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
-import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
-let rpcEndpoint = null
+import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
+import Market from "../artifacts/contracts/NFTMarket.sol/NFTMarket.json";
+let rpcEndpoint = null;
 if (process.env.NEXT_PUBLIC_WORKSPACE_URL) {
-  rpcEndpoint = process.env.NEXT_PUBLIC_WORKSPACE_URL
+  rpcEndpoint = process.env.NEXT_PUBLIC_WORKSPACE_URL;
 }
+import { CardProfile } from "../components/CardProfile";
 export default function Home() {
-  const [nfts, setNfts] = useState([])
-  const [loadingState, setLoadingState] = useState('not-loaded')
- 
+  const [nfts, setNfts] = useState([]);
+  const [loadingState, setLoadingState] = useState("not-loaded");
+
   useEffect(() => {
-   
-    loadNFTs()
-  }, [])
-   async function loadNFTs() {    
-    const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_WORKSPACE_URL)
-    const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
-    const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, provider)
-    const data = await marketContract.fetchMarketItems()
-    const items = await Promise.all(data.map(async i => {
-      const tokenUri = await tokenContract.tokenURI(i.tokenId)
-      const meta = await axios.get(tokenUri)
-      let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
-      let item = {
+    loadNFTs();
+  }, []);
+  async function loadNFTs() {
+    const provider = new ethers.providers.JsonRpcProvider(
+      process.env.NEXT_PUBLIC_WORKSPACE_URL
+    );
+    const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider);
+    const marketContract = new ethers.Contract(
+      nftmarketaddress,
+      Market.abi,
+      provider
+    );
+    const data = await marketContract.fetchMarketItems();
+    const items = await Promise.all(
+      data.map(async (i) => {
+        const tokenUri = await tokenContract.tokenURI(i.tokenId);
+        const meta = await axios.get(tokenUri);
+        let price = ethers.utils.formatUnits(i.price.toString(), "ether");
+        let item = {
           price,
           itemId: i.itemId.toNumber(),
           seller: i.seller,
@@ -40,56 +44,73 @@ export default function Home() {
           image: meta.data.image,
           name: meta.data.name,
           description: meta.data.description,
-        }
-        return item
-      }))
-    setNfts(items)
-    setLoadingState('loaded') 
-    }
-
-   async function buyNft(nft) {
-     //abre popup
-    const web3Modal = new Web3Modal()
-    //connecta com metamask
-    const connection = await web3Modal.connect()
-    const provider = new ethers.providers.Web3Provider(connection)
-    //coleta a assinatura para validar a transação
-    const signer = provider.getSigner()
-    const contract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
-    //cria o contrato com a assinatura.
-    const price = ethers.utils.parseUnits(nft.price.toString(), 'ether')
-    const transaction = await contract.createMarketSale(nftaddress, nft.itemId, {
-      value: price
-    })
-
-    await transaction.wait()
-    loadNFTs()
+        };
+        return item;
+      })
+    );
+    setNfts(items);
+    setLoadingState("loaded");
   }
 
-  if (loadingState === 'loaded' && !nfts.length) return (<h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>)
+  async function buyNft(nft) {
+    //abre popup
+    const web3Modal = new Web3Modal();
+    //connecta com metamask
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    //coleta a assinatura para validar a transação
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(nftmarketaddress, Market.abi, signer);
+    console.log(signer.getAddress());
+    //cria o contrato com a assinatura.
+    const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
+    const transaction = await contract.createMarketSale(
+      nftaddress,
+      nft.itemId,
+      {
+        value: price,
+      }
+    );
+
+    await transaction.wait();
+    loadNFTs();
+  }
+
+  if (loadingState === "loaded" && !nfts.length)
+    return <h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>;
   return (
-    <div >
-      <div className="px-4" style={{ maxWidth: '1600px' }}>
+    <div>
+      <div className="px-4" style={{ maxWidth: "1600px" }}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-          {
-            nfts.map((nft, i) => (
-              <div key={i} className="border shadow rounded-xl overflow-hidden">
-                <img src={nft.image} style={{height:"500px"}} />
-                <div className="p-4">
-                  <p style={{ height: '64px' }} className="text-2xl font-semibold">{nft.name}</p>
-                  <div style={{ height: '70px', overflow: 'hidden' }}>
-                    <p className="text-gray-400">{nft.description}</p>
-                  </div>
-                </div>
-                <div className="p-4 bg-black">
-                  <p className="text-2xl mb-4 font-bold text-white">{nft.price} ETH</p>
-                  <button className="w-full bg-pink-500 text-white font-bold py-2 px-12 rounded" onClick={() => buyNft(nft)}>Buy</button>
-                </div>
+          {nfts.map((nft, i) => (
+            <div key={i} class="max-w-sm rounded overflow-hidden shadow-lg border-purple-700 	rounded" 
+            style={{boxShadow: "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset"}}>
+              <img
+                class="w-full"
+                src={nft.image}
+                style={{ height: "250px" }}
+                alt="Sunset in the mountains"
+              />
+              <div class="px-6 py-4">
+                <div class=" text-white font-bold text-xl mb-2"> {nft.name}</div>
+                <p class="text-white text-base">{nft.description}</p>
               </div>
-            ))
-          }
+              <div class="px-6 py-4">
+                <div class=" text-white font-bold text-xl mb-2"> Price</div>
+                <p class="text-white font-bold text-base">{nft.price} ETH</p>
+              </div>
+            
+              <button
+                className="bg-purple-600	 hover:bg-purple-900 w-full text-white font-bold py-2 px-12 rounded-t-md "
+                onClick={() => buyNft(nft)}
+               
+              >
+                Buy
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </div>
-  )
+  );
 }

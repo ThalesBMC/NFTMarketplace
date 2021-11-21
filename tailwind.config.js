@@ -2,10 +2,16 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      inset: {
+        '100': "100rem",    
+      }
+    },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+        require('@themesberg/flowbite/plugin')
+    ]
 }

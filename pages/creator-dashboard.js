@@ -29,11 +29,12 @@ export default function CreatorDashboard() {
     const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
     const data = await marketContract.fetchItemsCreated()
-    
+    console.log(data)
     const items = await Promise.all(data.map(async i => {
       const tokenUri = await tokenContract.tokenURI(i.tokenId)
       const meta = await axios.get(tokenUri)
       let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
+      
       let item = {
         price,
         tokenId: i.tokenId.toNumber(),
@@ -41,12 +42,15 @@ export default function CreatorDashboard() {
         owner: i.owner,
         sold: i.sold,
         image: meta.data.image,
+        name: meta.data.name,
+        description: meta.data.description,
       }
       return item
     }))
     /* create a filtered array of items that have been sold */
     const soldItems = items.filter(i => i.sold)
     setSold(soldItems)
+   
     setNfts(items)
     setLoadingState('loaded') 
   }
@@ -54,16 +58,27 @@ export default function CreatorDashboard() {
   return (
     <div>
       <div className="p-4">
-        <h2 className="text-2xl py-2">Items Created</h2>
+        <h2 className="text-2xl py-2 text-white">Items Created</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
           {
             nfts.map((nft, i) => (
-              <div key={i} className="border shadow rounded-xl overflow-hidden">
-                <img src={nft.image} className="rounded" />
-                <div className="p-4 bg-black">
-                  <p className="text-2xl font-bold text-white">Price - {nft.price} Eth</p>
-                </div>
+              <div key={i} class="max-w-sm rounded overflow-hidden shadow-lg border-purple-700 	rounded" 
+            style={{boxShadow: "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset"}}>
+              <img
+                class="w-full"
+                src={nft.image}
+                style={{ height: "450px" }}
+                alt="Sunset in the mountains"
+              />
+              <div class="px-6 py-4">
+                <div class=" text-white font-bold text-xl mb-2"> {nft.name}</div>
+                <p class="text-white text-base">{nft.description}</p>
               </div>
+              <div class="px-6 py-4">
+                <div class=" text-white font-bold text-xl mb-2"> Price</div>
+                <p class="text-white font-bold text-base">{nft.price} ETH</p>
+              </div>
+            </div>
             ))
           }
         </div>
@@ -72,16 +87,27 @@ export default function CreatorDashboard() {
         {
           Boolean(sold.length) && (
             <div>
-              <h2 className="text-2xl py-2">Items sold</h2>
+              <h2 className="text-2xl py-2 text-white">Items sold</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
                 {
                   sold.map((nft, i) => (
-                    <div key={i} className="border shadow rounded-xl overflow-hidden">
-                      <img src={nft.image} className="rounded" />
-                      <div className="p-4 bg-black">
-                        <p className="text-2xl font-bold text-white">Price - {nft.price} Eth</p>
-                      </div>
-                    </div>
+                    <div key={i} class="max-w-sm rounded overflow-hidden shadow-lg border-purple-700 	rounded" 
+            style={{boxShadow: "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset"}}>
+              <img
+                class="w-full"
+                src={nft.image}
+                style={{ height: "450px" }}
+                alt="Sunset in the mountains"
+              />
+              <div class="px-6 py-4">
+                <div class=" text-white font-bold text-xl mb-2"> {nft.name}</div>
+                <p class="text-white text-base">{nft.description}</p>
+              </div>
+              <div class="px-6 py-4">
+                <div class=" text-white font-bold text-xl mb-2"> Price</div>
+                <p class="text-white font-bold text-base">{nft.price} ETH</p>
+              </div>
+            </div>
                   ))
                 }
               </div>

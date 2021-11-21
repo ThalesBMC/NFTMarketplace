@@ -86,23 +86,29 @@ export default function MyAssets() {
   if (loadingState === "loaded" && !nfts.length)
     return <h1 className="py-10 px-20 text-3xl">No assets owned</h1>;
   return (
-    <div className="flex justify-center">
+    <div className="flex ">
       <div className="p-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
           {nfts.map((nft, i) => (
-            <div key={i} className="border shadow rounded-xl overflow-hidden">
+            <div key={i} class="max-w-sm rounded overflow-hidden shadow-lg border-purple-700 	rounded" 
+            style={{boxShadow: "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset"}}>
               <img
+                class="w-full"
                 src={nft.image}
-                className="rounded"
-                style={{ height: "500px" }}
+                style={{ height: "450px" }}
+                alt="Sunset in the mountains"
               />
-              <div className="p-4 bg-black">
-                <p className="text-2xl font-bold text-white">
-                  Price - {nft.price} Eth
-                </p>
+              <div class="px-6 py-4">
+                <div class=" text-white font-bold text-xl mb-2"> {nft.name}</div>
+                <p class="text-white text-base">{nft.description}</p>
               </div>
+              <div class="px-6 py-4">
+                <div class=" text-white font-bold text-xl mb-2"> Price</div>
+                <p class="text-white font-bold text-base">{nft.price} ETH</p>
+              </div>
+            
               <button
-                className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg w-full"
+                 className="bg-purple-600	 hover:bg-purple-900 w-full text-white font-bold py-2 px-12 rounded-t-md "
                 onClick={() =>
                   sellNFT({
                     image: nft.image,
