@@ -2,7 +2,7 @@ import "../styles/globals.css";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { LoginContextProvider } from "./context/LoginContext";
+import { LoginContextProvider } from "../context/LoginContext";
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   console.log(router.pathname);
@@ -92,11 +92,9 @@ function MyApp({ Component, pageProps }) {
                 />
               )}
             </div>
-             <div className="flex flex-col items-center w-full">
+            <div className="flex flex-col items-center w-full">
               <Link href="/users">
-                <a className="mr-6 text-purple-500 text-2xl	">
-                  Users
-                </a>
+                <a className="mr-6 text-purple-500 text-2xl	">Users</a>
               </Link>
               {router.pathname === "/users" && (
                 <div

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { db } from "./firebase-config";
+import { db } from "../firebase-config";
 import {
   collection,
   getDocs,
@@ -10,16 +10,14 @@ import {
 } from "firebase/firestore";
 import axios from "axios";
 
-import { LoginContext } from "./context/LoginContext";
-import {UserProfile} from "../components/UserProfile"
-export default function users () {
-     const { users, getUsers, userInfo, walletId } = useContext(LoginContext);
-     console.log(users)
-    return (
-        <div style={{marginTop:"20px"}}>
-          {users
-            ? users.map((e) => <UserProfile key={e.imgUrl} data={e} />)
-            : null}
-        </div>
-    )
+import { LoginContext } from "../context/LoginContext";
+import { UserProfile } from "../components/UserProfile";
+export default function users() {
+  const { users, getUsers, userInfo, walletId } = useContext(LoginContext);
+  console.log(users);
+  return (
+    <div style={{ marginTop: "20px" }}>
+      {users ? users.map((e) => <UserProfile key={e.imgUrl} data={e} />) : null}
+    </div>
+  );
 }

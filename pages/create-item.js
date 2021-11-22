@@ -10,7 +10,7 @@ import { nftaddress, nftmarketaddress } from "../config";
 
 import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
 import Market from "../artifacts/contracts/NFTMarket.sol/NFTMarket.json";
-import '@themesberg/flowbite';
+
 export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null);
   const [formInput, updateFormInput] = useState({
@@ -104,16 +104,28 @@ export default function CreateItem() {
             updateFormInput({ ...formInput, price: e.target.value })
           }
         />
-       
-        
-        <label className="text-md font-medium text-white block mb-2 mt-2" for="user_avatar">Upload file</label>
-        <input onChange={onChange} class="block w-full cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-transparent text-sm rounded-lg" aria-describedby="user_avatar_help" id="user_avatar" type="file"/>
-        <div className="mt-1 text-sm text-gray-500" id="user_avatar_help">A picture for the NFT</div>
-        
+
+        <label
+          className="text-md font-medium text-white block mb-2 mt-2"
+          for="user_avatar"
+        >
+          Upload file
+        </label>
+        <input
+          onChange={onChange}
+          className="block w-full cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-transparent text-sm rounded-lg"
+          aria-describedby="user_avatar_help"
+          id="user_avatar"
+          type="file"
+        />
+        <div className="mt-1 text-sm text-gray-500" id="user_avatar_help">
+          A picture for the NFT
+        </div>
+
         {fileUrl && <img className="rounded mt-4" width="350" src={fileUrl} />}
         <button
           onClick={createMarket}
-           className="bg-purple-600 w-full mt-3	hover:bg-purple-900 w-full text-white font-bold py-2 px-12 rounded flex justify-center "
+          className="bg-purple-600 w-full mt-3	hover:bg-purple-900 w-full text-white font-bold py-2 px-12 rounded flex justify-center "
         >
           Create Digital Asset
           {loadingCreate ? (

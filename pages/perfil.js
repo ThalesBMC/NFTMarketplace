@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { db } from "./firebase-config";
+import { db } from "../firebase-config";
 import {
   collection,
   getDocs,
@@ -19,7 +19,7 @@ import { nftaddress, nftmarketaddress } from "../config";
 import Market from "../artifacts/contracts/NFTMarket.sol/NFTMarket.json";
 import { EditText, EditTextarea } from "react-edit-text";
 import "react-edit-text/dist/index.css";
-import { LoginContext } from "./context/LoginContext";
+import { LoginContext } from "../context/LoginContext";
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 export default function Perfil() {
   const { users, getUsers, userInfo, walletId } = useContext(LoginContext);
@@ -38,10 +38,10 @@ export default function Perfil() {
   const [colorInput, setColorInput] = useState(false);
   const [page, setPage] = useState("favorites");
   const [favoritedList, setFavoritedList] = useState([]);
-  const [textName,setTextName] = useState("")
-  const [textDescription,setTextDescription] = useState("")
+  const [textName, setTextName] = useState("");
+  const [textDescription, setTextDescription] = useState("");
   const [loadingState, setLoadingState] = useState("not-loaded");
-  const[nftCreated,setNftCreated]= useState("")
+  const [nftCreated, setNftCreated] = useState("");
 
   const [nftsOwned, setNftsOwned] = useState([]);
   const [loadingStateOwned, setLoadingStateOwned] = useState("not-loaded");
@@ -69,7 +69,7 @@ export default function Perfil() {
       data.map(async (i) => {
         const tokenUri = await tokenContract.tokenURI(i.tokenId);
         const meta = await axios.get(tokenUri);
-        console.log(meta)
+        console.log(meta);
         let price = ethers.utils.formatUnits(i.price.toString(), "ether");
         let item = {
           price,
@@ -77,8 +77,8 @@ export default function Perfil() {
           seller: i.seller,
           owner: i.owner,
           image: meta.data.image,
-           name: meta.data.name,
-           description:meta.data.description
+          name: meta.data.name,
+          description: meta.data.description,
         };
         return item;
       })
@@ -128,7 +128,7 @@ export default function Perfil() {
     );
     /* create a filtered array of items that have been sold */
     const soldItems = items.filter((i) => i.sold);
-    console.log(items )
+    console.log(items);
 
     setNftCreated(items);
     setLoadingState("loaded");
@@ -140,8 +140,8 @@ export default function Perfil() {
   }, [users, walletId]);
   const getFavorites = async () => {
     let teste2 = users.filter((e) => e.walletId === walletId);
-    if(teste2[0]){
-    setFavoritedList(teste2[0].favorites);
+    if (teste2[0]) {
+      setFavoritedList(teste2[0].favorites);
     }
   };
   async function onChange(e) {
@@ -183,7 +183,6 @@ export default function Perfil() {
       const userDoc = doc(db, "users", teste[0].id);
       await updateDoc(userDoc, {
         name: i,
-     
       });
 
       getUsers();
@@ -191,11 +190,10 @@ export default function Perfil() {
   };
   const updateUserDescription = async (i) => {
     let teste = users.filter((e) => e.walletId === walletId);
-    console.log(i, teste)
+    console.log(i, teste);
     if (teste.length > 0) {
       const userDoc = doc(db, "users", teste[0].id);
       await updateDoc(userDoc, {
-
         description: i,
       });
 
@@ -207,28 +205,24 @@ export default function Perfil() {
     /*Collecting node-element and performing click*/
     inputFileRef.current.click();
   };
-  
+
   const toggleHover = (value) => {
     setHover(value);
   };
   const setColor = (value) => {
     setColorInput(!colorInput);
   };
-  const onSetTextName=(value)=>{
-   
-    setEditable(true), 
-    updateUserName(value.value)
+  const onSetTextName = (value) => {
+    setEditable(true), updateUserName(value.value);
   };
-  const onSetTextDescription=(value)=>{
-
-    setEditable2(true), 
-    updateUserDescription(value.value)
+  const onSetTextDescription = (value) => {
+    setEditable2(true), updateUserDescription(value.value);
   };
   return (
     <div>
       <div className="flex justify-center">
         {userInfo.imgUrl ? (
-          <div className="flex justify-center items-center " >
+          <div className="flex justify-center items-center ">
             <img
               className="rounded-full mt-4 h-60 w-60 border-4 "
               src={userInfo.imgUrl}
@@ -260,11 +254,15 @@ export default function Perfil() {
               onChange={onChange}
             />
           </div>
-        ): <div className="flex justify-center items-center " >
+        ) : (
+          <div className="flex justify-center items-center ">
             <img
               className="rounded-full mt-4 h-60 w-60 border-4 "
-      
-              style={{ borderColor: "#b84ef2", opacity: hover ? "0.5" : "", backgroundColor:userInfo.imgUrl?"":"#b84ef2" }}
+              style={{
+                borderColor: "#b84ef2",
+                opacity: hover ? "0.5" : "",
+                backgroundColor: userInfo.imgUrl ? "" : "#b84ef2",
+              }}
               onMouseEnter={() => toggleHover(true)}
               onMouseLeave={() => toggleHover(false)}
             />
@@ -291,7 +289,8 @@ export default function Perfil() {
               style={{ display: "none" }}
               onChange={onChange}
             />
-          </div>}
+          </div>
+        )}
       </div>
       <div
         className="flex flex-col items-center mt-8"
@@ -301,30 +300,68 @@ export default function Perfil() {
         //   alignItems: "center",
         // }}
       >
-        <div style={{display:'flex', flexDirection:'row', alignItems:"center", }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
           <EditText
             className="text-6xl 	"
-            style={{  color:"white",backgroundColor:"#18142c", height:"100px" }}
-            placeholder={userInfo.name?userInfo.name:"name"}
+            style={{
+              color: "white",
+              backgroundColor: "#18142c",
+              height: "100px",
+            }}
+            placeholder={userInfo.name ? userInfo.name : "name"}
             name="textbox2"
             onSave={onSetTextName}
             readonly={editable}
-           
           />
-          <img onClick={()=>setEditable(false)} src={"/pencil.png"} style={{width:'30px', height:'30px', marginLeft:"20px",  cursor:"pointer"}}/>
+          <img
+            onClick={() => setEditable(false)}
+            src={"/pencil.png"}
+            style={{
+              width: "30px",
+              height: "30px",
+              marginLeft: "20px",
+              cursor: "pointer",
+            }}
+          />
           {/* <img  onClick={()=>{setEditable(true), updateUserName(textName)}}  src={"/check-mark.png"} style={{width:'30px', height:'30px', marginLeft:"20px",  cursor:"pointer"}}/> */}
         </div>
-        <div style={{display:'flex', flexDirection:'row', alignItems:"center"}}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
           <EditText
             className="text-white text-6xl	"
-            style={{ color:  "white",backgroundColor:"#18142c" ,height:"100px" }}
-            placeholder={userInfo.description ? userInfo.description : "description" }
+            style={{
+              color: "white",
+              backgroundColor: "#18142c",
+              height: "100px",
+            }}
+            placeholder={
+              userInfo.description ? userInfo.description : "description"
+            }
             name="textbox3"
             onSave={onSetTextDescription}
             readonly={editable2}
- 
           />
-          <img onClick={()=>setEditable2(false)} src={"/pencil.png"} style={{width:'30px', height:'30px', marginLeft:"20px", cursor:"pointer"}}/>
+          <img
+            onClick={() => setEditable2(false)}
+            src={"/pencil.png"}
+            style={{
+              width: "30px",
+              height: "30px",
+              marginLeft: "20px",
+              cursor: "pointer",
+            }}
+          />
           {/* <img  onClick={()=>{setEditable2(true), updateUserDescription(textDescription)}} src={"/check-mark.png"} style={{width:'30px', height:'30px', marginLeft:"20px",  cursor:"pointer"}}/> */}
         </div>
 
@@ -332,7 +369,7 @@ export default function Perfil() {
       </div>
 
       <div className="flex flex-row items-center mt-8 space-x-10 justify-center">
-          <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center">
           <div
             className="text-white text-4xl cursor-pointer"
             style={{ alignText: "center" }}
@@ -392,27 +429,23 @@ export default function Perfil() {
             />
           )}
         </div>
-      
       </div>
       {page === "favorites" && (
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 ml-16">
-      
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 ml-16">
           {favoritedList
             ? favoritedList.map((e) => <CardProfile key={e.image} data={e} />)
             : null}
         </div>
       )}
-       {page === "created" && (
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 ml-16">
-      
+      {page === "created" && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 ml-16">
           {nftCreated
             ? nftCreated.map((e) => <CardProfile key={e.image} data={e} />)
             : null}
         </div>
       )}
       {page === "owned" && (
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 ml-16">
-      
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 ml-16">
           {nftsOwned
             ? nftsOwned.map((e) => <CardProfile key={e.image} data={e} />)
             : null}
