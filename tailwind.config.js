@@ -4,14 +4,12 @@ module.exports = {
   theme: {
     extend: {
       inset: {
-        '100': "100rem",    
-      }
+        100: "100rem",
+      },
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [
-        require('@themesberg/flowbite/plugin')
-    ]
-}
+  plugins: [],
+};
