@@ -98,7 +98,7 @@ export default function CreateItem() {
           }
         />
         <input
-          placeholder="Asset Price in Eth"
+          placeholder="Asset Price in Matic"
           className="mt-2 border rounded p-4"
           onChange={(e) =>
             updateFormInput({ ...formInput, price: e.target.value })
@@ -107,18 +107,18 @@ export default function CreateItem() {
        
         
         <label className="text-md font-medium text-white block mb-2 mt-2" for="user_avatar">Upload file</label>
-        <input class="block w-full cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-transparent text-sm rounded-lg" aria-describedby="user_avatar_help" id="user_avatar" type="file"/>
+        <input onChange={onChange} class="block w-full cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-transparent text-sm rounded-lg" aria-describedby="user_avatar_help" id="user_avatar" type="file"/>
         <div className="mt-1 text-sm text-gray-500" id="user_avatar_help">A picture for the NFT</div>
         
         {fileUrl && <img className="rounded mt-4" width="350" src={fileUrl} />}
         <button
           onClick={createMarket}
-           className="bg-purple-600 w-full mt-3	hover:bg-purple-900 w-full text-white font-bold py-2 px-12 rounded "
+           className="bg-purple-600 w-full mt-3	hover:bg-purple-900 w-full text-white font-bold py-2 px-12 rounded flex justify-center "
         >
           Create Digital Asset
           {loadingCreate ? (
             <img
-              style={{ width: "35px", height: "30px", marginLeft: "20px" }}
+              style={{ width: "30px", height: "30px", marginLeft: "20px" }}
               src={
                 "https://icons8.com/preloaders/preloaders/865/Ethereum%20logo%20revolving.gif"
               }

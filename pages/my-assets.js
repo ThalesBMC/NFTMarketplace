@@ -38,10 +38,13 @@ export default function MyAssets() {
         let price = ethers.utils.formatUnits(i.price.toString(), "ether");
         let item = {
           price,
+          
           tokenId: i.tokenId.toNumber(),
           seller: i.seller,
           owner: i.owner,
           image: meta.data.image,
+          name : meta.data.name,
+            description:meta.data.description
         };
         return item;
       })
@@ -90,8 +93,14 @@ export default function MyAssets() {
       <div className="p-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
           {nfts.map((nft, i) => (
-            <div key={i} class="max-w-sm rounded overflow-hidden shadow-lg border-purple-700 	rounded" 
-            style={{boxShadow: "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset"}}>
+            <div
+              key={i}
+              class="max-w-sm rounded overflow-hidden shadow-lg border-purple-700 	rounded"
+              style={{
+                boxShadow:
+                  "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
+              }}
+            >
               <img
                 class="w-full"
                 src={nft.image}
@@ -99,16 +108,21 @@ export default function MyAssets() {
                 alt="Sunset in the mountains"
               />
               <div class="px-6 py-4">
-                <div class=" text-white font-bold text-xl mb-2"> {nft.name}</div>
+                <div class=" text-white font-bold text-xl mb-2">
+                 
+                  {nft.name}
+                </div>
                 <p class="text-white text-base">{nft.description}</p>
               </div>
               <div class="px-6 py-4">
                 <div class=" text-white font-bold text-xl mb-2"> Price</div>
-                <p class="text-white font-bold text-base">{nft.price} ETH</p>
+                <p class="font-bold text-base" style={{ color: "#984dc4" }}>
+                  {nft.price} Matic
+                </p>
               </div>
-            
+
               <button
-                 className="bg-purple-600	 hover:bg-purple-900 w-full text-white font-bold py-2 px-12 rounded-t-md "
+                className="bg-purple-600	 hover:bg-purple-900 w-full text-white font-bold py-2 px-12 rounded-t-md "
                 onClick={() =>
                   sellNFT({
                     image: nft.image,
