@@ -11,6 +11,7 @@ export const CardProfile = ({ data, size }) => {
     favoritedList,
   } = useContext(LoginContext);
   console.log(data.tokenId, favoritedList);
+  if (!data.image) return <></>;
   return (
     <>
       <div
