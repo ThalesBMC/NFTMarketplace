@@ -1,4 +1,4 @@
-UFPE NFT Market
+UFPE NFT Marketplace
 
 You can run using npm run dev
 
