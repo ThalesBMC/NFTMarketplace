@@ -75,7 +75,7 @@ export default function MyAssets() {
     );
     //cria o contrato com a assinatura.
     console.log("chega aqui");
-    const price = ethers.utils.parseUnits(nft.price, "ether");
+    const price = ethers.utils.parseUnits("0.1", "ether");
     const transaction = await contract.putItemToResell(
       data[0][nft.itemId],
       nft.itemId,
