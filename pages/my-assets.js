@@ -57,6 +57,7 @@ export default function MyAssets() {
     const web3Modal = new Web3Modal();
     //connecta com metamask
     const connection = await web3Modal.connect();
+
     const provider = new ethers.providers.Web3Provider(connection);
     //coleta a assinatura para validar a transação
     const signer = provider.getSigner();
@@ -65,7 +66,7 @@ export default function MyAssets() {
       Market.abi,
       signer
     );
-
+    alert("aq3");
     const data = await marketContract.fetchMyNFTs();
     const contract = new ethers.Contract(
       data[0][nft.itemId],
@@ -73,15 +74,14 @@ export default function MyAssets() {
       signer
     );
     //cria o contrato com a assinatura.
-    console.log(signer);
-
-    const transaction = await contract.transferFrom(
-      nftaddress,
+    alert("aq");
+    const price = ethers.utils.parseUnits(nft.price, "ether");
+    const transaction = await contract.putItemToResell(
       data[0][nft.itemId],
-      nftmarketaddress,
-      nft.itemId
+      nft.itemId,
+      price
     );
-    console.log("a");
+    alert("aq2");
     await transaction.wait();
     console.log("ab");
   }
