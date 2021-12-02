@@ -66,7 +66,7 @@ export default function MyAssets() {
       Market.abi,
       signer
     );
-    alert("aq3");
+
     const data = await marketContract.fetchMyNFTs();
     const contract = new ethers.Contract(
       data[0][nft.itemId],
@@ -74,16 +74,15 @@ export default function MyAssets() {
       signer
     );
     //cria o contrato com a assinatura.
-    alert("aq");
+
     const price = ethers.utils.parseUnits(nft.price, "ether");
     const transaction = await contract.putItemToResell(
       data[0][nft.itemId],
       nft.itemId,
       price
     );
-    alert("aq2");
+    console.log("não chega aqui");
     await transaction.wait();
-    console.log("ab");
   }
   console.log(nfts);
   if (loadingState === "loaded" && !nfts.length)
