@@ -168,14 +168,14 @@ export const LoginContextProvider = ({ children }) => {
   }, [users]);
   useEffect(() => {
     getUsers();
-  }, []);
+  }, [signer]);
   useEffect(() => {
     let teste = users.filter((e) => e.walletId === walletId);
 
     if (teste.length > 0) {
       setUserInfo(teste[0]);
     }
-  }, [walletId, users]);
+  }, [walletId, users,signer]);
   return (
     <LoginContext.Provider value={{ signer,users, getUsers, userInfo, walletId, getFavorites, addFavorite, removeFavorite, favoritedList }}>
       {children}
