@@ -1,8 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# .secret
+.secret
 .infuraid
-# config.js
+config.js
 
 # dependencies
 /node_modules
@@ -29,11 +29,11 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-# .env
-# .env.local
-# .env.development.local
-# .env.test.local
-# .env.production.local
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # vercel
 .vercel
