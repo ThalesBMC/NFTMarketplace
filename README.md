@@ -25,7 +25,7 @@ Lembrando que a confirmação de transação dura alguns segundos.
 
 Referências:
 
-InspiraÃ§Ã£o funcionalidades https://opensea.io/
+Inspiração funcionalidades https://opensea.io/
 
 Color inspiration https://dribbble.com/shots/16672394-AlienSpace-NFT-Webapp-Platform
 
