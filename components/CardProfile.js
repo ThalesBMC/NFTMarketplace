@@ -29,7 +29,7 @@ export const CardProfile = ({ data, size }) => {
             position: "relative",
           }}
         >
-          {favoritedList && favoritedList.includes(data.itemId) ? (
+          {favoritedList && favoritedList.includes(data.tokenId) ? (
             <img
               style={{
                 position: "absolute",

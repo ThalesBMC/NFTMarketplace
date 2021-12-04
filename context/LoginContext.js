@@ -75,13 +75,16 @@ export const LoginContextProvider = ({ children }) => {
   },[])
   const getFavorites = async () => {
     let favorites2 = users.filter((e) => e.walletId === walletId);
-
+    console.log(favorites2,"aqui")
     if (favorites2[0]) {
       let itemsIds = favorites2[0].favorites.map((e) => {
-        return e.itemId;
+      
+        return e.tokenId;
       });
-
+      console.log(itemsIds)
       setFavoritedList(itemsIds);
+      
+     
     }
   };
   const addFavorite = async (i,type) => {

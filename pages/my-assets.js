@@ -174,6 +174,7 @@ export default function MyAssets() {
                       placeholder="Asset Price in Matic"
                       className="mt-2 border rounded p-4"
                       type="number"
+                      min="0.1"
                       onChange={(e) =>
                         setPriceSell(e.target.value)
                       }

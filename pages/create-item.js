@@ -103,6 +103,7 @@ export default function CreateItem() {
           placeholder="Asset Price in Matic"
           className="mt-2 border rounded p-4"
           type="number"
+          min="0.1"
           onChange={(e) =>
             updateFormInput({ ...formInput, price: e.target.value })
           }

@@ -35,10 +35,11 @@ export default function Home() {
   } = useContext(LoginContext);
   const [nfts, setNfts] = useState([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
-
+ 
   const [search, setSearch] = useState("");
 
   useEffect(() => {
+    
     loadNFTs();
   }, [signer]);
 
@@ -67,7 +68,7 @@ export default function Home() {
       return item
     }))
     setNfts(items)
-  
+    console.log(items,"dsaddsasda")
     setLoadingState("loaded");
   }
 
@@ -107,6 +108,7 @@ export default function Home() {
   };
   if (loadingState === "loaded" && !nfts.length)
     return <h1 className="px-20 py-10 text-3xl text-white">No items in marketplace</h1>;
+ 
   return (
     <div>
       <div className="px-4" style={{ maxWidth: "1600px" }}>
@@ -156,7 +158,7 @@ export default function Home() {
                       justifyContent: "flex-end",
                     }}
                   >
-                    {favoritedList && favoritedList.includes(nft.itemId) ? (
+                    {favoritedList && favoritedList.includes(nft.tokenId) ? (
                       <img
                         style={{
                           position: "absolute",
@@ -166,6 +168,7 @@ export default function Home() {
                           cursor: "pointer",
                         }}
                         onClick={() => {
+                          
                           removeFavorite(nft);
                         }}
                         src={"/heart.png"}
@@ -241,7 +244,7 @@ export default function Home() {
                       justifyContent: "flex-end",
                     }}
                   >
-                    {favoritedList && favoritedList.includes(nft.itemId) ? (
+                    {favoritedList && favoritedList.includes(nft.tokenId) ? (
                       <img
                         style={{
                           position: "absolute",
