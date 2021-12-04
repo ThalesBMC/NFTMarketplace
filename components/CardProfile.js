@@ -10,12 +10,12 @@ export const CardProfile = ({ data, size }) => {
     addFavorite,
     favoritedList,
   } = useContext(LoginContext);
-  console.log(data.tokenId, favoritedList);
+  console.log(size);
   if (!data.image) return <></>;
   return (
     <>
       <div
-        className="max-w-sm rounded overflow-hidden shadow-lg border-purple-700 	rounded mb-6 flex-shrink-0"
+        className="max-w-sm rounded overflow-hidden shadow-lg border-purple-700 	rounded mb-6 flex-shrink-0 mt-6"
         style={{
           boxShadow:
             "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
@@ -64,8 +64,8 @@ export const CardProfile = ({ data, size }) => {
           className="w-full"
           src={data.image}
           style={{
-            height: size === "userFavorite" ? "300px" : "450px",
-            width: size === "userFavorite" ? "300px" : "",
+            height: "15.625rem",
+            width: size === "userFavorite" ? "15.625rem" : "",
           }}
           alt="Sunset in the mountains"
         />

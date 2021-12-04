@@ -363,7 +363,7 @@ export default function Perfil() {
           {/* <img  onClick={()=>{setEditable2(true), updateUserDescription(textDescription)}} src={"/check-mark.png"} style={{width:'30px', height:'30px', marginLeft:"20px",  cursor:"pointer"}}/> */}
         </div>
 
-        <div className="text-white text-1xl mt-4 ">{userInfo.walletId}</div>
+        <div className="text-white text-xl mt-4 ">Wallet id: {userInfo.walletId}</div>
       </div>
 
       <div className="flex flex-row items-center mt-8 space-x-10 justify-center">

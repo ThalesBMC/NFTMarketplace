@@ -277,7 +277,7 @@ export default function Home() {
                   <img
                     className="w-full"
                     src={nft.image}
-                    style={{ height: "250px" }}
+                    style={{ height: "15.625rem" }}
                     alt="Sunset in the mountains"
                   />
                   <div className="px-6 py-4">

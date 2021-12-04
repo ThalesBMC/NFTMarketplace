@@ -108,7 +108,7 @@ export default function MyAssets() {
                   <img
                     class="w-full"
                     src={nft.image}
-                    style={{ height: "450px" }}
+                    style={{ height: "15.625rem" }}
                     alt="Sunset in the mountains"
                   />
                   <div class="px-6 py-4">
