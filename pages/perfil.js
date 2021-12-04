@@ -22,7 +22,7 @@ import "react-edit-text/dist/index.css";
 import { LoginContext } from "../context/LoginContext";
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 export default function Perfil() {
-  const { users, getUsers, userInfo, walletId } = useContext(LoginContext);
+  const { users, getUsers, userInfo, walletId,signer } = useContext(LoginContext);
   const inputFileRef = React.useRef();
 
   const [editable, setEditable] = useState(true);
@@ -47,7 +47,7 @@ export default function Perfil() {
   const [loadingStateOwned, setLoadingStateOwned] = useState("not-loaded");
   useEffect(() => {
     loadNFTsOwned();
-  }, []);
+  }, [signer]);
   async function loadNFTsOwned() {
     const web3Modal = new Web3Modal({
       network: "mainnet",
@@ -55,8 +55,7 @@ export default function Perfil() {
     });
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
-
+    
     const marketContract = new ethers.Contract(
       nftmarketaddress,
       Market.abi,
@@ -69,7 +68,7 @@ export default function Perfil() {
       data.map(async (i) => {
         const tokenUri = await tokenContract.tokenURI(i.tokenId);
         const meta = await axios.get(tokenUri);
-        console.log(meta);
+    
         let price = ethers.utils.formatUnits(i.price.toString(), "ether");
         let item = {
           price,
@@ -84,12 +83,12 @@ export default function Perfil() {
       })
     );
     setNftsOwned(items);
-    console.log(items);
+
     setLoadingStateOwned("loaded");
   }
   useEffect(() => {
     loadNFTs();
-  }, []);
+  }, [signer]);
   async function loadNFTs() {
     const web3Modal = new Web3Modal({
       network: "mainnet",
@@ -97,7 +96,7 @@ export default function Perfil() {
     });
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
+   
 
     const marketContract = new ethers.Contract(
       nftmarketaddress,
@@ -106,7 +105,7 @@ export default function Perfil() {
     );
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider);
     const data = await marketContract.fetchItemsCreated();
-    console.log(data);
+  
     const items = await Promise.all(
       data.map(async (i) => {
         const tokenUri = await tokenContract.tokenURI(i.tokenId);
@@ -128,7 +127,7 @@ export default function Perfil() {
     );
     /* create a filtered array of items that have been sold */
     const soldItems = items.filter((i) => i.sold);
-    console.log(items);
+ 
 
     setNftCreated(items);
     setLoadingState("loaded");
@@ -147,13 +146,13 @@ export default function Perfil() {
   async function onChange(e) {
     const file = e.target.files[0];
     try {
-      console.log(url, "3");
+    
       const added = await client.add(file, {
         progress: (prog) => console.log(`received: ${prog}`),
       });
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
       await setFileUrl(url);
-      console.log(url, "l");
+
       addProfileImage(url);
     } catch (error) {
       console.log("Error uploading file: ", error);
@@ -161,12 +160,11 @@ export default function Perfil() {
   }
   const addProfileImage = async (urlImg) => {
     try {
-      console.log(walletId);
-      console.log(users);
+  
       let teste = users.filter((e) => e.walletId === walletId);
-      console.log(teste, "aqui");
+     
       if (teste.length) {
-        console.log("aqui2");
+      
         const userDoc = doc(db, "users", teste[0].id);
         await updateDoc(userDoc, {
           imgUrl: urlImg,
@@ -190,7 +188,7 @@ export default function Perfil() {
   };
   const updateUserDescription = async (i) => {
     let teste = users.filter((e) => e.walletId === walletId);
-    console.log(i, teste);
+ 
     if (teste.length > 0) {
       const userDoc = doc(db, "users", teste[0].id);
       await updateDoc(userDoc, {

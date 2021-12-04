@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { LoginContextProvider } from "../context/LoginContext";
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
-  console.log(router.pathname);
+
   return (
     <LoginContextProvider>
       <div style={{ backgroundColor: "#18142c" }}>

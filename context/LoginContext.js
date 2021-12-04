@@ -14,6 +14,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
+import { init } from "../pages/web3Client";
 import Web3Modal from "web3modal";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import axios from "axios";
@@ -38,11 +39,40 @@ export const LoginContextProvider = ({ children }) => {
   const [page, setPage] = useState("owned");
     const [favoritedList, setFavoritedList] = useState([]);
   const usersCollectionRef = collection(db, "users");
+  const [signer,setSigner] = useState("")
     useEffect(() => {
     if (users) {
       getFavorites();
     }
   }, [users, walletId]);
+
+  useEffect(()=>{
+    const initTeste =async()=>{
+       const web3Modal = new Web3Modal({
+      network: "mainnet",
+      cacheProvider: true,
+    });
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    connection.on("accountsChanged", (accounts) => {
+      const changeAccount = async()=>{
+        const web3Modal = new Web3Modal({
+        network: "mainnet",
+        });
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signerLogin = provider.getSigner();
+        setSigner(signerLogin)
+        console.log("trocou", signerLogin)
+        }
+      changeAccount()
+    });
+    const signerLogin = provider.getSigner();
+    setSigner(signerLogin)
+  
+    }
+    initTeste()
+  },[])
   const getFavorites = async () => {
     let favorites2 = users.filter((e) => e.walletId === walletId);
 
@@ -144,7 +174,7 @@ export const LoginContextProvider = ({ children }) => {
     }
   }, [walletId, users]);
   return (
-    <LoginContext.Provider value={{ users, getUsers, userInfo, walletId, getFavorites, addFavorite, removeFavorite, favoritedList }}>
+    <LoginContext.Provider value={{ signer,users, getUsers, userInfo, walletId, getFavorites, addFavorite, removeFavorite, favoritedList }}>
       {children}
     </LoginContext.Provider>
   );

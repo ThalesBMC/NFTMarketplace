@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { ethers } from "ethers";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import { useRouter } from "next/router";
@@ -10,7 +10,7 @@ import { nftaddress, nftmarketaddress } from "../config";
 
 import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
 import Market from "../artifacts/contracts/NFTMarket.sol/NFTMarket.json";
-
+import { LoginContext } from "../context/LoginContext";
 export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null);
   const [formInput, updateFormInput] = useState({
@@ -20,7 +20,9 @@ export default function CreateItem() {
   });
   const [loadingCreate, setLoadingCreate] = useState(false);
   const router = useRouter();
-
+  const {
+   signer
+  } = useContext(LoginContext);
   async function onChange(e) {
     const file = e.target.files[0];
     try {
@@ -57,7 +59,7 @@ export default function CreateItem() {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
+   
 
     let contract = new ethers.Contract(nftaddress, NFT.abi, signer);
     let transaction = await contract.createToken(url);
@@ -100,6 +102,7 @@ export default function CreateItem() {
         <input
           placeholder="Asset Price in Matic"
           className="mt-2 border rounded p-4"
+          type="number"
           onChange={(e) =>
             updateFormInput({ ...formInput, price: e.target.value })
           }
