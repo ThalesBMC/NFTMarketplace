@@ -14,7 +14,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import { init } from "../pages/web3Client";
+
 import Web3Modal from "web3modal";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import axios from "axios";
