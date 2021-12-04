@@ -17,8 +17,7 @@ Chain ID: 80001
 
 Currency Symbol: Matic
 
-Entre nesse site e coloque seu Wallet address para poder receber Matic de graÃ§a para poder efetuar transaÃ§Ãµes
-no site.
+Entre nesse site e coloque seu Wallet address para poder receber Matic de graça para poder efetuar transações no site.
 
 https://faucet.polygon.technology/
 
