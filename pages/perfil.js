@@ -367,64 +367,67 @@ export default function Perfil() {
       </div>
 
       <div className="flex flex-row items-center mt-8 space-x-10 justify-center">
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center group">
           <div
-            className="text-white text-4xl cursor-pointer"
+            className="text-white text-4xl cursor-pointer "
             style={{ alignText: "center" }}
             onClick={() => setPage("favorites")}
           >
             Favorites
           </div>
           {page === "favorites" && (
-            <div
-              style={{
-                width: "100%",
-                height: "6px",
-                backgroundColor: "#b84ef2",
-                borderTopLeftRadius: "10px",
-                borderTopRightRadius: "10px",
-              }}
-            />
+              <div
+                  className="inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur opacity-100 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-tilt"
+                  style={{
+                    width: "100%",
+                    height: "6px",
+                    backgroundColor: "#b84ef2",
+                    borderTopLeftRadius: "10px",
+                    borderTopRightRadius: "10px",
+                  }}
+                />
           )}
         </div>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center group">
           <div
-            className="text-white text-4xl cursor-pointer"
+            className="text-white text-4xl cursor-pointer "
             style={{ alignText: "center" }}
             onClick={() => setPage("owned")}
           >
             Owned
           </div>
           {page === "owned" && (
-            <div
-              style={{
-                width: "100%",
-                height: "6px",
-                backgroundColor: "#b84ef2",
-                borderTopLeftRadius: "10px",
-                borderTopRightRadius: "10px",
-              }}
-            />
+              <div
+                  className="inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur opacity-100 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-tilt"
+                  style={{
+                    width: "100%",
+                    height: "6px",
+                    backgroundColor: "#b84ef2",
+                    borderTopLeftRadius: "10px",
+                    borderTopRightRadius: "10px",
+                  }}
+                />
           )}
         </div>
-        <div className="flex flex-col items-center ">
+        <div className="flex flex-col items-center group">
           <div
-            className="text-white text-4xl cursor-pointer"
+            className="text-white text-4xl cursor-pointer "
             style={{ alignText: "center" }}
             onClick={() => setPage("created")}
           >
             Created
           </div>
           {page === "created" && (
-            <div
-              style={{
-                width: "100%",
-                height: "6px",
-                backgroundColor: "#b84ef2",
-                borderTopLeftRadius: "10px",
-                borderTopRightRadius: "10px",
-              }}
-            />
+              <div
+                  className="inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur opacity-100 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-tilt"
+                  style={{
+                    width: "100%",
+                    height: "6px",
+                    backgroundColor: "#b84ef2",
+                    borderTopLeftRadius: "10px",
+                    borderTopRightRadius: "10px",
+                  }}
+                />
           )}
         </div>
       </div>

@@ -9,6 +9,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
+
 import Web3Modal from "web3modal";
 import { db } from "../firebase-config";
 import { nftaddress, nftmarketaddress } from "../config";
@@ -209,13 +210,15 @@ export default function Home() {
                       {nft.price} MATIC
                     </p>
                   </div>
-
-                  <button
-                    className="bg-purple-600	 hover:bg-purple-900 w-full text-white font-bold py-2 px-12 rounded-t-md "
+                  
+                 <button
+                    
+                    className="relative bg-purple-600	 hover:bg-purple-900 transition duration-200  w-full text-white font-bold py-2 px-12 rounded-t-md buttonBright"
                     onClick={() => buyNft(nft)}
                   >
                     Buy
                   </button>
+                
                 </div>
               </>
             ))
@@ -292,13 +295,17 @@ export default function Home() {
                       {nft.price} MATIC
                     </p>
                   </div>
-
-                  <button
-                    className="bg-purple-600	 hover:bg-purple-900 w-full text-white font-bold py-2 px-12 rounded-t-md "
+                 
+                
+                                  
+                               <button
+                    
+                    className="relative bg-purple-600	 hover:bg-purple-900 transition duration-200  w-full text-white font-bold py-2 px-12 rounded-t-md buttonBright"
                     onClick={() => buyNft(nft)}
                   >
                     Buy
                   </button>
+                
                 </div>
               ))}
             </>

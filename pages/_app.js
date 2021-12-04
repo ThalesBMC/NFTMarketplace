@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }) {
             UFPE NFT MARKET
           </p>
           <div className="flex mt-4 w-3/4">
-            <div className="flex flex-col items-center w-full">
+            <div className="flex flex-col items-center w-full group">
               <Link href="/">
                 <a
                   className="mr-4 text-purple-500  text-2xl"
@@ -24,7 +24,9 @@ function MyApp({ Component, pageProps }) {
                 </a>
               </Link>
               {router.pathname === "/" && (
+
                 <div
+                  className="inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur opacity-100 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-tilt"
                   style={{
                     width: "100%",
                     height: "6px",
@@ -35,7 +37,7 @@ function MyApp({ Component, pageProps }) {
                 />
               )}
             </div>
-            <div className="flex flex-col items-center w-full">
+            <div className="flex flex-col items-center w-full group">
               <Link href="/create-item">
                 <a className="mr-6 text-purple-500 text-2xl	">
                   Sell Digital Asset
@@ -43,85 +45,85 @@ function MyApp({ Component, pageProps }) {
               </Link>
               {router.pathname === "/create-item" && (
                 <div
+                  className="inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur opacity-100 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-tilt"
                   style={{
-                    width: "90%",
+                    width: "100%",
                     height: "6px",
                     backgroundColor: "#b84ef2",
                     borderTopLeftRadius: "10px",
                     borderTopRightRadius: "10px",
-                    marginRight: "10%",
                   }}
                 />
               )}
             </div>
-            <div className="flex flex-col items-center w-full">
+            <div className="flex flex-col items-center w-full group">
               <Link href="/my-assets">
                 <a className="mr-6 text-purple-500 text-2xl	">
                   My Digital Assets
                 </a>
               </Link>
               {router.pathname === "/my-assets" && (
-                <div
+                 <div
+                  className="inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur opacity-100 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-tilt"
                   style={{
-                    width: "90%",
+                    width: "100%",
                     height: "6px",
                     backgroundColor: "#b84ef2",
                     borderTopLeftRadius: "10px",
                     borderTopRightRadius: "10px",
-                    marginRight: "10%",
                   }}
                 />
               )}
             </div>
-            <div className="flex flex-col items-center w-full">
+            <div className="flex flex-col items-center w-full group">
               <Link href="/creator-dashboard">
                 <a className="mr-6 text-purple-500 text-2xl	">
                   Creator Dashboard
                 </a>
               </Link>
               {router.pathname === "/creator-dashboard" && (
-                <div
+                 <div
+                  className="inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur opacity-100 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-tilt"
                   style={{
-                    width: "90%",
+                    width: "100%",
                     height: "6px",
                     backgroundColor: "#b84ef2",
                     borderTopLeftRadius: "10px",
                     borderTopRightRadius: "10px",
-                    marginRight: "10%",
                   }}
                 />
               )}
             </div>
-            <div className="flex flex-col items-center w-full">
+            <div className="flex flex-col items-center w-full group">
               <Link href="/users">
                 <a className="mr-6 text-purple-500 text-2xl	">Users</a>
               </Link>
               {router.pathname === "/users" && (
                 <div
+                  className="inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur opacity-100 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-tilt"
                   style={{
-                    width: "90%",
+                    width: "100%",
                     height: "6px",
                     backgroundColor: "#b84ef2",
                     borderTopLeftRadius: "10px",
                     borderTopRightRadius: "10px",
-                    marginRight: "10%",
                   }}
                 />
               )}
             </div>
-            <div className="flex flex-col items-center w-full">
+            <div className="flex flex-col items-center w-full group">
               <Link href="/perfil">
                 <a className="mr-6 text-purple-500 text-2xl	">Perfil</a>
               </Link>
               {router.pathname === "/perfil" && (
-                <div
+                 <div
+                  className="inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur opacity-100 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-tilt"
                   style={{
-                    width: "90%",
+                    width: "100%",
                     height: "6px",
                     backgroundColor: "#b84ef2",
                     borderTopLeftRadius: "10px",
                     borderTopRightRadius: "10px",
-                    marginRight: "10%",
                   }}
                 />
               )}
