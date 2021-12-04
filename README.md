@@ -3,7 +3,7 @@ UFPE NFT Marketplace
 You can run using npm run dev
 
 The current website:
-https://nft-marketplace-thalesbmc.vercel.app/
+https://ufpe-nft-market.vercel.app/
 
 Adicione a extensão do Metamask
 
