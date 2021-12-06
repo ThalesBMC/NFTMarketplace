@@ -5,9 +5,9 @@ You can run using npm run dev
 The current website:
 https://ufpe-nft-market.vercel.app/
 
-Adicione a extensão do Metamask
+Add Metamask Extension
 
-Adicione essa rede no metamask
+Add this network to metamask
 
 Network Name: Mumbai TestNet
 
@@ -17,15 +17,15 @@ Chain ID: 80001
 
 Currency Symbol: Matic
 
-Entre nesse site e coloque seu Wallet address para poder receber Matic de graça para poder efetuar transações no site.
+Enter the website  below and enter your Wallet address in order to receive Matic for free to carry out transactions on the site.
 
 https://faucet.polygon.technology/
 
-Lembrando que a confirmação de transação dura alguns segundos.
+Remembering that the transaction confirmation takes a few seconds.
 
-Referências:
+References:
 
-Inspiração funcionalidades https://opensea.io/
+Inspiration features https://opensea.io/
 
 Color inspiration https://dribbble.com/shots/16672394-AlienSpace-NFT-Webapp-Platform
 
