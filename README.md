@@ -1,4 +1,4 @@
-UFPE NFT Marketplace
+NFT Marketplace that you can mint, buy and sell NFTs
 
 You can run using npm run dev
 
