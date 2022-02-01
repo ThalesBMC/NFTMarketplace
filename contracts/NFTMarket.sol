@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT OR Apache-2.0
+// SPDX-License-Identifier: GPL-3.0 License
 pragma solidity ^0.8.3;
 import "./NFT.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
